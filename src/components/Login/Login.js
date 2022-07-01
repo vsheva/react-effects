@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react';
+import React, { useState, useEffect, useReducer, useContext, useRef } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -40,6 +40,9 @@ const Login = props => {
   });
 
   const authCtx = useContext(AuthContext);
+
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
   /** деструктуризация - псевдо присвоение
  const{isValid: emailIsValid} = emailState
@@ -99,13 +102,20 @@ const Login = props => {
 
   const submitHandler = event => {
     event.preventDefault();
-    authCtx.onLogin(emailState.value, passwordState.value);
+    if (formIsValid) {
+      authCtx.onLogin(emailState.value, passwordState.value);
+    } else if (!emailState.isValid) {
+      emailInputRef.current.focus(); //вызов activate() из inputа
+    } else {
+      passwordInputRef.current.focus(); ////вызов activate() из inputа
+    }
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
+          ref={emailInputRef}
           id="email"
           label="E-Mail"
           isValid={emailState.isValid}
@@ -116,6 +126,7 @@ const Login = props => {
         />
 
         <Input
+          ref={passwordInputRef}
           id="password"
           label="password"
           isValid={passwordState.isValid}
@@ -127,7 +138,7 @@ const Login = props => {
 
         {/* удаленное вниз*/}
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn}>
             Login
           </Button>
         </div>
