@@ -4,7 +4,7 @@ import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 import AuthContext from '../../store/auth-context';
-import Input from "../UI/Input/Input";
+import Input from '../UI/Input/Input';
 
 const emailReducer = (state, action) => {
   if (action.type === 'INPUT_EMAIL') {
@@ -25,8 +25,6 @@ const passwordReducer = (state, action) => {
   }
   return { value: '', isValid: false };
 };
-
-
 
 const Login = props => {
   /** const [enteredEmail, setEnteredEmail] = useState('');
@@ -66,7 +64,7 @@ const Login = props => {
       console.log('CLEANUP');
       clearTimeout(identifier);
     };
-}, [emailState.isValid, passwordState.isValid]); //*
+  }, [emailState.isValid, passwordState.isValid]); //*
 
   const emailChangeHandler = event => {
     //setEnteredEmail(event.target.value);
@@ -107,25 +105,24 @@ const Login = props => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-
         <Input
-        id="email"
-        label="E-Mail"
-        isValid={emailState.isValid}
-        type="email"
-        value={emailState.value}
-        onChange={emailChangeHandler}
-        onBlur={validateEmailHandler}
+          id="email"
+          label="E-Mail"
+          isValid={emailState.isValid}
+          type="email"
+          value={emailState.value}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
         />
 
         <Input
-            id="password"
-            label="password"
-            isValid={passwordState.isValid}
-            type="password"
-            value={passwordState.value}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
+          id="password"
+          label="password"
+          isValid={passwordState.isValid}
+          type="password"
+          value={passwordState.value}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
         />
 
         {/* удаленное вниз*/}
@@ -141,9 +138,8 @@ const Login = props => {
 
 export default Login;
 
-
 //*удаленное
-    /*<div
+/*<div
           className={`${classes.control}
            ${emailState.isValid === false ? classes.invalid : ''}`}
         >
